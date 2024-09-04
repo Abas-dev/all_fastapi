@@ -1,56 +1,73 @@
-from fastapi import FastAPI, Header
-from typing import Optional
-
-from pydantic import BaseModel
+from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get('/')
-async def read_root():
-    return {'message':'hello world'}
 
-@app.get('/path_greet/{name}')
-async def greet_name(name:str) -> dict:
-    return {'message':f'hello {name}'}
+Book = [
+    {   
+        "id":1,
+        "title":"Thank Your Lucky Stars",
+        "author":"Maurits Bartlam",
+        "publisher":"Winnie Earengey",
+        "published_date":"8/7/2024",
+        "page_count":"9543",
+        "language ":"Gujarati"
+    },
 
-@app.get('/query_greet')
-async def greet_name_01(name:str) -> dict:
-    return {'message':f'hello {name}'}
+    {   
+        "id":2,
+        "title":"Moscow Does Not Believe in Tears (Moskva slezam ne verit)",
+        "author":"Eben Romaines",
+        "publisher":"Rooney Pecht",
+        "published_date":"6/15/2024",
+        "page_count":"34733",
+        "language ":"Papiamento"
+    },
 
-@app.get('/greet/{name}')
-async def greet_name_02(name:str, age:int) -> dict:
-    return {'message':f'hello {name}, you are {age} years old'}
+    {   
+        "id":3,
+        "title":"Make Mine Music",
+        "author":"Dorothee Meeks",
+        "publisher":"Sutton Vanyashin",
+        "published_date":"5/15/2024",
+        "page_count":"5676",
+        "language ":"Montenegrin"
+    },
 
-'''  this is to make the path parameter optional using python Optional class from typing '''
-@app.get('/optional_greet')
-async def greet_name_03(name:Optional[str]='User', age:int=0) -> dict:
-    return {'message':f'hello {name}, you are {age} years old'}
+    {   
+        "id":4,
+        "title":"Pudana Last of the Line (Sukunsa viimeinen)",
+        "author":"Arni Runham",
+        "publisher":"Marinna Trawin",
+        "published_date":"6/7/2024",
+        "page_count":"08033",
+        "language ":"Polish"
+    },
 
+    {   
+        "id":5,
+        "title":"Girls in Prison",
+        "author":"Billie Hale",
+        "publisher":"Abbot Pevreal",
+        "published_date":"7/24/2024",
+        "page_count":"2353",
+        "language ":"Hebrew"
+    },
 
-'''i am starting to use post request from here to be sendig data from the request body'''
+]
 
-class BookCreateModel(BaseModel):
-    title : str 
-    author : str
+@app.get('/books')
+async def get_all_books():
+    ...
 
-@app.post('/create_book')
-async def create_book(book_data:BookCreateModel):
-    return {
-        'title': book_data.title,
-        'author': book_data.author
-    }
+@app.post('/books')
+async def get_all_books():
+    ...
 
-@app.get('/get_headers', status_code=200)
-async def get_headers(accept:str = Header(None), 
-                      content_type:str = Header(None), 
-                      user_agent:str = Header(None),
-                      host:str = Header(None),
-):
-    request_headers = {}
+@app.patch('/books')
+async def get_all_books():
+    ...
 
-    request_headers['Accept'] = accept
-    request_headers['Content_Type'] = content_type
-    request_headers['User-Agent'] = user_agent
-    request_headers['Host'] = host
-
-    return request_headers 
+@app.delete('/books')
+async def get_all_books():
+    ...
